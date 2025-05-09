@@ -79,7 +79,7 @@ public class TelaLogin extends Application {
                 return;
             }
 
-            try (Connection conexao = SQLServerConnection.conectar();
+            try (Connection conexao = AzureMySQLConnection.conectar();
                  PreparedStatement pstmt = conexao.prepareStatement(
                          "SELECT ID_Cargo FROM login_sistema WHERE Email = ? AND Senha = ?")) {
 
@@ -175,27 +175,19 @@ public class TelaLogin extends Application {
         stage.show();
     }
 
+public class AzureMySQLConnection {
     public static void main(String[] args) {
-        launch(args);
+        String url = "jdbc:mysql://seubanco.mysql.database.azure.com:3306/nomedobanco";
+        String user = "usuario@seubanco";
+        String password = "suaSenhaSuperSecreta";
+
+        try {
+            Connection conn = DriverManager.getConnection(url, user, password);
+            System.out.println("Conectado com sucesso!");
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println("Erro ao conectar: " + e.getMessage());
     }
-
-    public class SQLServerConnection {
-
-    public static Connection conectar() throws SQLException, ClassNotFoundException {
-        String url = "jdbc:mysql://localhost:3306/SunPDV";
-        String user = "seunome";    
-        String pass = "suasenha";   
-
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        return DriverManager.getConnection(url, user, pass);
-    }
-
-    public static void main(String[] args) {
-        try (Connection conexao = conectar()) {
-            System.out.println("Conexão bem-sucedida!");
-        } catch (Exception e) {
-            System.out.println("Erro: " + e.getMessage());
-        }
     }
 }
 
