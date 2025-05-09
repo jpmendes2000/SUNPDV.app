@@ -25,6 +25,9 @@ import java.sql.SQLException;
 
 public class TelaLogin extends Application {
 
+
+    
+
     @Override
     public void start(Stage stage) {
         // Layout
@@ -57,6 +60,8 @@ public class TelaLogin extends Application {
         Button buttonLimpar = new Button("APAGAR");
         gridPane.add(buttonEnviar, 0, 2);
         gridPane.add(buttonLimpar, 1, 2);
+        buttonEnviar.getStyleClass().add("botao-enviar");
+        buttonLimpar.getStyleClass().add("botao-limpar");
         
 
         // Ação ENVIAR
